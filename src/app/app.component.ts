@@ -342,10 +342,10 @@ export class AppComponent implements OnInit {
   recentStudents = computed(() => this.allStudents().slice(0, 5));
 
   courses = signal<Course[]>([
-    { id: 'c1', name: 'Class 10 Board Prep', instructor: 'Mr. Q', studentsCount: 120, duration: '1 Year', fee: 18000 },
-    { id: 'c2', name: 'Class 12 Physics (Inter)', instructor: 'Dr. P', studentsCount: 85, duration: '1 Year', fee: 22000 },
-    { id: 'c3', name: 'Class 12 Maths (Inter)', instructor: 'Mrs. A', studentsCount: 95, duration: '1 Year', fee: 22000 },
-    { id: 'c4', name: 'Class 9 Foundation', instructor: 'Mr. B', studentsCount: 110, duration: '1 Year', fee: 15000 },
+    { id: 'c1', name: 'Class 10 Board Prep', instructor: 'Mr. Q', studentsCount: 120, duration: '1 Year', fee: 1000 },
+    { id: 'c2', name: 'Class 12 Physics (Inter)', instructor: 'Dr. P', studentsCount: 85, duration: '1 Year', fee: 2000 },
+    { id: 'c3', name: 'Class 12 Maths (Inter)', instructor: 'Mrs. A', studentsCount: 95, duration: '1 Year', fee: 2000 },
+    { id: 'c4', name: 'Class 9 Foundation', instructor: 'Mr. B', studentsCount: 110, duration: '1 Year', fee: 5000 },
     { id: 'c5', name: 'Class 11 Commerce', instructor: 'Ms D', studentsCount: 48, duration: '1 Year', fee: 20000 },
   ]);
 
