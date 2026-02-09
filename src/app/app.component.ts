@@ -95,11 +95,11 @@ interface MenuItem {
           </div>
           
           <div class="flex items-center gap-4">
-            <div class="relative hidden sm:block">
+              <div class="relative hidden sm:block">
               <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
               </span>
-              <input type="text" placeholder="Search students, batches..." class="pl-10 pr-4 py-2 bg-slate-100 border-none rounded-full text-sm focus:ring-2 focus:ring-indigo-500 w-64 transition-all">
+              <input type="text" placeholder="Search students, batches..." [ngModel]="search()" (ngModelChange)="search.set($event)" class="pl-10 pr-4 py-2 bg-slate-100 border-none rounded-full text-sm focus:ring-2 focus:ring-indigo-500 w-64 transition-all">
             </div>
             <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-bold text-xs border border-indigo-200">
               AD
@@ -234,7 +234,7 @@ interface MenuItem {
                     </tr>
                   </thead>
                   <tbody class="divide-y divide-slate-100">
-                    @for (s of allStudents(); track s.id) {
+                    @for (s of filteredStudents(); track s.id) {
                       <tr class="hover:bg-slate-50 transition-colors">
                         <td class="px-6 py-4">
                           <div class="flex items-center gap-3">
@@ -253,7 +253,7 @@ interface MenuItem {
                         </td>
                         <td class="px-6 py-4 text-sm text-slate-500">{{ s.joinedDate }}</td>
                         <td class="px-6 py-4 text-right">
-                          <button class="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all">
+                          <button (click)="toggleStatus(s.id)" title="Toggle status" class="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path></svg>
                           </button>
                         </td>
@@ -291,12 +291,35 @@ interface MenuItem {
                       </div>
                     </div>
 
-                    <button class="w-full mt-2 py-3 bg-slate-50 text-slate-700 font-bold text-sm rounded-xl group-hover:bg-indigo-600 group-hover:text-white transition-all">
+                    <button (click)="openCourse(course)" class="w-full mt-2 py-3 bg-slate-50 text-slate-700 font-bold text-sm rounded-xl group-hover:bg-indigo-600 group-hover:text-white transition-all">
                       View Syllabus
                     </button>
                   </div>
                 </div>
               }
+            </div>
+          }
+          
+          <!-- Course Modal -->
+          @if (selectedCourse() !== null) {
+            <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+              <div class="bg-white rounded-2xl w-11/12 max-w-xl p-6 shadow-xl">
+                <div class="flex justify-between items-start">
+                  <div>
+                    <h3 class="text-lg font-bold">{{ selectedCourse()!.name }}</h3>
+                    <p class="text-sm text-slate-500">Instructor: {{ selectedCourse()!.instructor }}</p>
+                  </div>
+                  <button (click)="closeCourse()" class="text-slate-400 hover:text-slate-700">✕</button>
+                </div>
+                <div class="mt-4">
+                  <p class="text-sm text-slate-600">Duration: {{ selectedCourse()!.duration }}</p>
+                  <p class="text-sm text-slate-600">Students: {{ selectedCourse()!.studentsCount }}</p>
+                  <p class="text-sm text-indigo-600 font-bold mt-3">Fee: ₹{{ selectedCourse()!.fee }}</p>
+                </div>
+                <div class="mt-6 text-right">
+                  <button (click)="closeCourse()" class="px-4 py-2 bg-indigo-600 text-white rounded-lg">Close</button>
+                </div>
+              </div>
             </div>
           }
 
@@ -322,6 +345,21 @@ export class AppComponent implements OnInit {
     { id: 'schedule', label: 'Classes', icon: 'calendar' },
     { id: 'finance', label: 'Fees', icon: 'trending-up' },
   ];
+
+  // interactive UI signals
+  search = signal('');
+  selectedCourse = signal<Course | null>(null);
+
+  filteredStudents = computed(() => {
+    const q = this.search().trim().toLowerCase();
+    if (!q) return this.allStudents();
+    return this.allStudents().filter(s =>
+      s.name.toLowerCase().includes(q) ||
+      s.email.toLowerCase().includes(q) ||
+      s.course.toLowerCase().includes(q) ||
+      s.batch.toLowerCase().includes(q)
+    );
+  });
 
   stats = signal([
     { label: 'Total Students', value: '50', growth: 8, icon: 'users', color: 'text-indigo-600', bgColor: 'bg-indigo-50' },
@@ -370,6 +408,20 @@ export class AppComponent implements OnInit {
   getSvgIcon(iconName: string): string {
     // This will be replaced with actual SVG selection logic
     return '';
+  }
+
+  toggleStatus(studentId: string) {
+    this.allStudents.update(list =>
+      list.map(s => s.id === studentId ? { ...s, status: s.status === 'Active' ? 'Inactive' : 'Active' } : s)
+    );
+  }
+
+  openCourse(c: Course) {
+    this.selectedCourse.set(c);
+  }
+
+  closeCourse() {
+    this.selectedCourse.set(null);
   }
 
   ngOnInit() {}
