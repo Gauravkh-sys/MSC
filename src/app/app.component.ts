@@ -324,29 +324,29 @@ export class AppComponent implements OnInit {
   ];
 
   stats = signal([
-    { label: 'Total Students', value: '458', growth: 8, icon: 'users', color: 'text-indigo-600', bgColor: 'bg-indigo-50' },
-    { label: 'Active Batches', value: '18', growth: 2, icon: 'book-open', color: 'text-purple-600', bgColor: 'bg-purple-50' },
-    { label: 'Monthly Collection', value: '₹1.8L', growth: 12, icon: 'trending-up', color: 'text-emerald-600', bgColor: 'bg-emerald-50' },
-    { label: 'Avg Attendance', value: '92%', growth: 4, icon: 'check-circle', color: 'text-amber-600', bgColor: 'bg-amber-50' },
+    { label: 'Total Students', value: '50', growth: 8, icon: 'users', color: 'text-indigo-600', bgColor: 'bg-indigo-50' },
+    { label: 'Active Batches', value: '4', growth: 2, icon: 'book-open', color: 'text-purple-600', bgColor: 'bg-purple-50' },
+    { label: 'Monthly Collection', value: '₹X.XX', growth: 12, icon: 'trending-up', color: 'text-emerald-600', bgColor: 'bg-emerald-50' },
+    { label: 'Avg Attendance', value: '90%', growth: 4, icon: 'check-circle', color: 'text-amber-600', bgColor: 'bg-amber-50' },
   ]);
 
   allStudents = signal<Student[]>([
-    { id: '1', name: 'Arjun Verma', email: 'arjun.v@modernstudy.com', course: 'Class 10 (High School)', batch: 'Morning Board Prep', joinedDate: '05 Apr 2024', status: 'Active', attendance: 95 },
-    { id: '2', name: 'Sara Khan', email: 'sara.k@modernstudy.com', course: 'Class 12 (Intermediate)', batch: 'Physics Group A', joinedDate: '08 Apr 2024', status: 'Active', attendance: 88 },
-    { id: '3', name: 'Manish Raj', email: 'manish.r@modernstudy.com', course: 'Class 9', batch: 'Foundation Batch', joinedDate: '10 Apr 2024', status: 'Active', attendance: 91 },
-    { id: '4', name: 'Ishita Gupta', email: 'ishita.g@modernstudy.com', course: 'Class 11 (Intermediate)', batch: 'Commerce Batch', joinedDate: '12 Apr 2024', status: 'Active', attendance: 84 },
-    { id: '5', name: 'Rohan Mehra', email: 'rohan.m@modernstudy.com', course: 'Class 10 (High School)', batch: 'Evening Board Prep', joinedDate: '15 Apr 2024', status: 'Active', attendance: 76 },
-    { id: '6', name: 'Pooja Das', email: 'pooja.d@modernstudy.com', course: 'Class 12 (Intermediate)', batch: 'Maths Intensive', joinedDate: '18 Apr 2024', status: 'Active', attendance: 98 },
+    { id: '1', name: 'Arjun', email: 'arjun.v@demoaccount.com', course: 'Class 10 (High School)', batch: 'Morning Board Prep', joinedDate: '05 Apr 2024', status: 'Active', attendance: 95 },
+    { id: '2', name: 'Sara', email: 'sara.k@demoaccount.com', course: 'Class 12 (Intermediate)', batch: 'Physics Group A', joinedDate: '08 Apr 2024', status: 'Active', attendance: 88 },
+    { id: '3', name: 'Manish', email: 'manish.r@demoaccount.com', course: 'Class 9', batch: 'Foundation Batch', joinedDate: '10 Apr 2024', status: 'Active', attendance: 91 },
+    { id: '4', name: 'Ishita', email: 'ishita.g@demoaccount.com', course: 'Class 11 (Intermediate)', batch: 'Commerce Batch', joinedDate: '12 Apr 2024', status: 'Active', attendance: 84 },
+    { id: '5', name: 'Rohan', email: 'rohan.m@demoaccount.com', course: 'Class 10 (High School)', batch: 'Evening Board Prep', joinedDate: '15 Apr 2024', status: 'Active', attendance: 76 },
+    { id: '6', name: 'Pooja', email: 'pooja.d@demoaccount.com', course: 'Class 12 (Intermediate)', batch: 'Maths Intensive', joinedDate: '18 Apr 2024', status: 'Active', attendance: 98 },
   ]);
 
   recentStudents = computed(() => this.allStudents().slice(0, 5));
 
   courses = signal<Course[]>([
-    { id: 'c1', name: 'Class 10 Board Prep', instructor: 'Mr. Rajesh Kumar', studentsCount: 120, duration: '1 Year', fee: 18000 },
-    { id: 'c2', name: 'Class 12 Physics (Inter)', instructor: 'Dr. S. Sharma', studentsCount: 85, duration: '1 Year', fee: 22000 },
-    { id: 'c3', name: 'Class 12 Maths (Inter)', instructor: 'Mrs. Geeta Paul', studentsCount: 95, duration: '1 Year', fee: 22000 },
-    { id: 'c4', name: 'Class 9 Foundation', instructor: 'Mr. Amit Singh', studentsCount: 110, duration: '1 Year', fee: 15000 },
-    { id: 'c5', name: 'Class 11 Commerce', instructor: 'CA Neha Jha', studentsCount: 48, duration: '1 Year', fee: 20000 },
+    { id: 'c1', name: 'Class 10 Board Prep', instructor: 'Mr. Q', studentsCount: 120, duration: '1 Year', fee: 18000 },
+    { id: 'c2', name: 'Class 12 Physics (Inter)', instructor: 'Dr. P', studentsCount: 85, duration: '1 Year', fee: 22000 },
+    { id: 'c3', name: 'Class 12 Maths (Inter)', instructor: 'Mrs. A', studentsCount: 95, duration: '1 Year', fee: 22000 },
+    { id: 'c4', name: 'Class 9 Foundation', instructor: 'Mr. B', studentsCount: 110, duration: '1 Year', fee: 15000 },
+    { id: 'c5', name: 'Class 11 Commerce', instructor: 'Ms D', studentsCount: 48, duration: '1 Year', fee: 20000 },
   ]);
 
   batches = signal<Batch[]>([
